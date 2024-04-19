@@ -24,5 +24,7 @@ public class TestaProduto {
         } else {
             System.out.println("Não são!");
         }
+
+        System.out.println(celular.getNome());
     }
 }

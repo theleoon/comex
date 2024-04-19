@@ -11,7 +11,7 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" +
-                "nome='" + nome + '\'' +
+                "nome='" + this.getNome() + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", precoUnitario=" + precoUnitario +
                 ", quantidade=" + quantidade +
