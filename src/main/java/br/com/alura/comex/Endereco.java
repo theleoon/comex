@@ -1,15 +1,35 @@
 package br.com.alura.comex;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
+@Embeddable
 public class Endereco {
 
+    @Column(length = 20)
     private String rua;
+    @Column(length = 8)
     private Integer numero;
+    @Column(length = 100)
     private String complemento;
+    @Column(length = 80)
     private String bairro;
+    @Column(length = 50)
     private String cidade;
+    @Column(length = 20)
     private String estado;
+
+    public Endereco(String rua, Integer numero, String bairro, String cidade, String estado) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
+    public Endereco() {
+    }
 
     @Override
     public String toString() {
