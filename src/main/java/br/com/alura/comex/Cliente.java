@@ -1,20 +1,41 @@
 package br.com.alura.comex;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "cliente")
 public class Cliente {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "nome", length = 120, nullable = false)
     private String nome;
+    @Column(name = "cpf", length = 11, nullable = false)
     private String cpf;
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
+    @Column(name = "profissao", length = 80, nullable = true)
     private String profissao;
+    @Column(name = "telefone", length = 25, nullable = true)
     private String telefone;
+    @Embedded
     private Endereco endereco;
 
     public Cliente(String nome , String cpf, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+    }
+
+    public Cliente(String nome , String cpf, String email, Endereco endereco) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.endereco = endereco;
+    }
+
+    public Cliente() {
     }
 
     @Override
@@ -88,5 +109,13 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
