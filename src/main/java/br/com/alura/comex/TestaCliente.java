@@ -1,6 +1,8 @@
 package br.com.alura.comex;
 
 import br.com.alura.comex.dao.ClienteDao;
+import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Endereco;
 
 public class TestaCliente {
     public static void main(String[] args) {

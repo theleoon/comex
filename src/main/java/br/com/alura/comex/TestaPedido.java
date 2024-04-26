@@ -1,5 +1,8 @@
 package br.com.alura.comex;
 
+import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Pedido;
+
 import java.math.BigDecimal;
 
 public class TestaPedido {

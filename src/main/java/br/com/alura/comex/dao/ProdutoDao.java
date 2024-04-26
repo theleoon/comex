@@ -1,17 +1,17 @@
 package br.com.alura.comex.dao;
 
-import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 
-public class ClienteDao {
-    public void salvar(Cliente cliente) {
+public class ProdutoDao {
+    public void salva(Produto novoProduto) {
 
         EntityManager manager = new JPAUtil().getEntityManager();
 
         manager.getTransaction().begin();
-        manager.persist(cliente);
+        manager.persist(novoProduto);
         manager.getTransaction().commit();
 
     }

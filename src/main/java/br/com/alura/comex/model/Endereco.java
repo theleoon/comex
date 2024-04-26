@@ -1,4 +1,4 @@
-package br.com.alura.comex;
+package br.com.alura.comex.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -7,9 +7,9 @@ import java.util.Objects;
 @Embeddable
 public class Endereco {
 
-    @Column(length = 20)
+    @Column(name = "rua", length = 20)
     private String rua;
-    @Column(length = 8)
+    @Column(name = "numero", length = 8)
     private Integer numero;
     @Column(length = 100)
     private String complemento;
