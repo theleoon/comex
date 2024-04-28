@@ -1,24 +1,34 @@
-package br.com.alura.comex;
+package br.com.alura.comex.model;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "produto")
 public class Produto {
-    private String nome;
-    private String descricao;
-    private Double precoUnitario;
-    private Integer quantidade;
 
-    public Produto(String nome, String descricao, Double precoUnitario, Integer quantidade) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "nome", length = 120, nullable = false)
+    private String nome;
+    @Column(name = "descricao", length = 220, nullable = true)
+    private String descricao;
+    @Column(name = "preco_unitario", nullable = false)
+    private BigDecimal precoUnitario;
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
+    public Produto(String nome, String descricao, BigDecimal precoUnitario, Integer quantidade, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
         this.quantidade = quantidade;
-    }
-
-    public Produto(String nome, Double precoUnitario, Integer quantidade) {
-        this.nome = nome;
-        this.precoUnitario = precoUnitario;
-        this.quantidade = quantidade;
+        this.categoria = categoria;
     }
 
     public Produto() {
@@ -63,12 +73,19 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getPrecoUnitario() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(Double precoUnitario) {
-        if (precoUnitario > 50000) return;
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
     }
 
@@ -77,7 +94,14 @@ public class Produto {
     }
 
     public void setQuantidade(Integer quantidade) {
-        if (quantidade > 5000) return;
         this.quantidade = quantidade;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
