@@ -1,4 +1,4 @@
-package br.com.alura.comex;
+package br.com.alura.comex.testes;
 
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.StatusCategoriaEnum;
