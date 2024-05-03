@@ -1,6 +1,6 @@
 package br.com.alura.comex.dao;
 
-import br.com.alura.comex.JPAUtil;
+import br.com.alura.comex.util.JPAUtil;
 import br.com.alura.comex.model.Cliente;
 
 import javax.persistence.EntityManager;
