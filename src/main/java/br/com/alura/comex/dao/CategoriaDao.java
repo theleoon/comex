@@ -22,4 +22,8 @@ public class CategoriaDao {
         return categoriaCarregada;
 
     }
+
+    public Categoria buscarPorNome(String nomeDaCategoria) {
+        return null;
+    }
 }

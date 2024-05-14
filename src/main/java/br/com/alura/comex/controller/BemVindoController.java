@@ -1,5 +1,6 @@
-package br.com.alura.comex;
+package br.com.alura.comex.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
