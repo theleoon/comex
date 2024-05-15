@@ -1,7 +1,6 @@
 package br.com.alura.comex.util;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import jakarta.persistence.*;
 
 public class JPAUtil {
 

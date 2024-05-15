@@ -3,7 +3,7 @@ package br.com.alura.comex.dao;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.util.JPAUtil;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.*;
 
 public class ProdutoDao {
     public void salva(Produto novoProduto) {

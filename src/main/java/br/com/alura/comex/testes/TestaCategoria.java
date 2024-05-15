@@ -4,7 +4,7 @@ import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.StatusCategoriaEnum;
 import br.com.alura.comex.util.JPAUtil;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.*;
 
 public class TestaCategoria {
 

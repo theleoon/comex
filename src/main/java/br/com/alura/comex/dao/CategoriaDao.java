@@ -3,7 +3,7 @@ package br.com.alura.comex.dao;
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.util.JPAUtil;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.*;
 
 public class CategoriaDao {
     public Categoria buscaPorId(Long idDaCategoria) {
