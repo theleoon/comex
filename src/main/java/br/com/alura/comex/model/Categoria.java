@@ -1,6 +1,6 @@
 package br.com.alura.comex.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Categoria {

@@ -1,7 +1,7 @@
 package br.com.alura.comex.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable

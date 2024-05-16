@@ -5,8 +5,8 @@ import br.com.alura.comex.dao.ProdutoDao;
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.Produto;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
 
 public class TestaJpaProduto {

@@ -4,8 +4,8 @@ import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.Endereco;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 
 public class TesteJpaComHibernate {
 

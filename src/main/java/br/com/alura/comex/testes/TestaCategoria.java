@@ -3,8 +3,8 @@ package br.com.alura.comex.testes;
 import br.com.alura.comex.dao.CategoriaDao;
 import br.com.alura.comex.model.Categoria;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 
 public class TestaCategoria {
 
