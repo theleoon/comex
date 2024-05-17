@@ -1,27 +1,48 @@
 package br.com.alura.comex.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.model.DadosNovaCategoria;
+import br.com.alura.comex.service.CategoriaService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class CategoriaController {
 
-    @PatchMapping("/api/categoria/{id}/desativa")
-    public void desativa(@PathVariable("id") Long categoriaId){
+    @Autowired
+    private CategoriaService categoriaService;
 
-        // service de categoria, desativa a categoria.
+    @PostMapping("/api/categoria")
+    public ResponseEntity cadastra(@RequestBody @Valid DadosNovaCategoria form,
+                                   BindingResult result){
+        if (result.hasFieldErrors()) {
+           return ResponseEntity.badRequest().build();
+        }
 
-        System.out.println(categoriaId);
+        categoriaService.cadastro(form.toEntity());
+        return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/api/categoria/{id}/ativa")
-    public void ativa(@PathVariable("id") Long categoriaId){
+    @GetMapping("/api/categoria/{id}")
+    public ResponseEntity<Object> buscaPorId(@PathVariable("id") Long categoriaId){
 
-        // service de categoria, ativa a categoria.
+        if (categoriaId == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        System.out.println(categoriaId);
+        Optional<Categoria> categoriaCarregada = categoriaService.buscaPorId(categoriaId);
+        if (categoriaCarregada.isPresent())
+            return ResponseEntity.ok().body(categoriaCarregada.get());
+
+        return ResponseEntity.notFound().build();
     }
+
+
 
 }

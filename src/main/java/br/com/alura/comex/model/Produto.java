@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "produto")
 public class Produto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "produto_id")
@@ -110,4 +109,6 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+
 }
