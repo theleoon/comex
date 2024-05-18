@@ -1,22 +1,21 @@
 package br.com.alura.comex.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import java.util.Objects;
 
 @Embeddable
 public class Endereco {
-    @Column(name = "rua", length = 120, nullable = false)
+    @Column(name = "rua", length = 20)
     private String rua;
-    @Column(name = "numero", length = 40, nullable = false)
+    @Column(name = "numero", length = 8)
     private Integer numero;
-    @Column(name = "complemento", length = 60, nullable = true)
+    @Column(length = 100)
     private String complemento;
-    @Column(name = "bairro", length = 80, nullable = false)
+    @Column(length = 80)
     private String bairro;
-    @Column(name = "cidade", length = 80, nullable = false)
+    @Column(length = 50)
     private String cidade;
-    @Column(name = "estado", length = 60, nullable = false)
+    @Column(length = 20)
     private String estado;
 
     public Endereco(String rua, Integer numero, String bairro, String cidade, String estado) {

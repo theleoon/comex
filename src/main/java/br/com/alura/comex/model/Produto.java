@@ -34,29 +34,6 @@ public class Produto {
     public Produto() {
     }
 
-    @Override
-    public String toString() {
-        return "Produto{" +
-                "nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", precoUnitario=" + precoUnitario +
-                ", quantidade=" + quantidade +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(nome, produto.nome);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nome);
-    }
-
     public String getNome() {
         return nome;
     }
@@ -71,6 +48,15 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        if (quantidade > 50) return; // subir um erro, algo assim
+        this.quantidade = quantidade;
     }
 
     public Long getId() {
@@ -89,10 +75,6 @@ public class Produto {
         this.precoUnitario = precoUnitario;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
@@ -104,4 +86,5 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
 }

@@ -1,42 +1,42 @@
 package br.com.alura.comex.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "pedido")
 public class Pedido {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "data", nullable = false)
+    private LocalDate data = LocalDate.now();
+
+    @JsonIgnore
+    @ManyToOne(optional = false)
     private Cliente cliente;
-    private BigDecimal preco;
-    private Integer quantidade;
 
-    public Pedido(Cliente cliente, BigDecimal preco, Integer quantidade) {
-        this.cliente = cliente;
-        this.preco = preco;
-        this.quantidade = quantidade;
-    }
+    @Column(name = "desconto", nullable = false, scale = 2)
+    private BigDecimal desconto = BigDecimal.ZERO;
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", cliente=" + cliente +
-                ", preco=" + preco +
-                ", quantidade=" + quantidade +
-                '}';
-    }
+    @Column(name = "total", nullable = false, scale = 2)
+    private BigDecimal total = BigDecimal.ZERO;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pedido pedido = (Pedido) o;
-        return Objects.equals(id, pedido.id);
-    }
+    @Column(name = "tipo_desconto", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoDescontoPedido tipoDesconto = TipoDescontoPedido.NENHUM;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemDePedido> itemPedidos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -44,6 +44,14 @@ public class Pedido {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public Cliente getCliente() {
@@ -54,31 +62,35 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public BigDecimal getDesconto() {
+        return desconto;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setDesconto(BigDecimal desconto) {
+        this.desconto = desconto;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
-    public BigDecimal getValorTotal() {
-        return this.preco.multiply(new BigDecimal(quantidade));
+    public TipoDescontoPedido getTipoDesconto() {
+        return tipoDesconto;
     }
 
-    public boolean isMaisCaroQue(Pedido outroPedido) {
-        return this.getValorTotal().compareTo(outroPedido.getValorTotal()) == 1;
+    public void setTipoDesconto(TipoDescontoPedido tipoDesconto) {
+        this.tipoDesconto = tipoDesconto;
     }
 
-    public boolean isMaisBaratoQue(Pedido outroPedido) {
-        return this.getValorTotal().compareTo(outroPedido.getValorTotal()) == -1;
+    public List<ItemDePedido> getItemPedidos() {
+        return itemPedidos;
+    }
+
+    public void setItemPedidos(List<ItemDePedido> itemPedidos) {
+        this.itemPedidos = itemPedidos;
     }
 }

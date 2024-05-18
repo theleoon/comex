@@ -1,11 +1,13 @@
 package br.com.alura.comex.integracao;
 
 public class ViaCepResponse {
+
     private String cep;
     private String logradouro;
     private String complemento;
     private String bairro;
     private String localidade;
+    private String uf;
 
     @Override
     public String toString() {
@@ -66,9 +68,5 @@ public class ViaCepResponse {
     public void setUf(String uf) {
         this.uf = uf;
     }
-
-    private String uf;
-
-
 
 }

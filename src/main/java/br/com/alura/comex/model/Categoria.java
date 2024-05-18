@@ -3,20 +3,33 @@ package br.com.alura.comex.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "categoria")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoria_id")
     private Long id;
-    @Column(length = 120, nullable = false)
+    @Column(name = "nome", length = 120)
     private String nome;
-    @Column(nullable = false)
-    private Boolean status = Boolean.TRUE;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusCategoriaEnum status = StatusCategoriaEnum.ATIVO;
 
     public Categoria(String nome) {
         this.nome = nome;
     }
 
     public Categoria() {
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", status=" + status +
+                '}';
     }
 
     public Long getId() {
@@ -35,11 +48,11 @@ public class Categoria {
         this.nome = nome;
     }
 
-    public Boolean getStatus() {
+    public StatusCategoriaEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(StatusCategoriaEnum status) {
         this.status = status;
     }
 }

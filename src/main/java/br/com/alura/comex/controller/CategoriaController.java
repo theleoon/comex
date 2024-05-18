@@ -1,28 +1,42 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.dao.CategoriaDao;
+
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.service.CategoriaService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class CategoriaController {
+    @Autowired
+    private CategoriaService service;
 
-    @PostMapping("/categoria")
-    public void cadastra(String nomeDaCategoria){
-        Categoria novaCategoria = new Categoria(nomeDaCategoria);
-        CategoriaService service = new CategoriaService();
-        service.cadastra(novaCategoria);
+    @PostMapping("/api/categoria")
+    public ResponseEntity cadastra(String nome){
+        if (nome == null) return ResponseEntity.badRequest().body("Necessário o parâmetro 'nome'");
+
+        Categoria novaCategoria = new Categoria(nome);
+        service.cadastro(novaCategoria);
+
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/categoria")
-    public Categoria getCategoriaPorNome(String nome){
-        String nomeDaCategoria = nome;
-        CategoriaDao dao = new CategoriaDao();
-        Categoria categoria = dao.buscarPorNome(nomeDaCategoria);
+    @GetMapping("/api/categoria/{id}")
+    public ResponseEntity<Object> buscaPorId(@PathVariable("id") Long categoriaId){
 
-        return null;
+        Optional<Categoria> categoria = service.buscaPorId(categoriaId);
+
+        if (categoria.isPresent()) return ResponseEntity.ok().body(categoria.get());
+
+        return ResponseEntity.notFound().build();
     }
+
 
 }
