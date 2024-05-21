@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/categoria")
 public class CategoriaController {
 
     @Autowired
     private CategoriaService categoriaService;
 
-    @PostMapping("/api/categoria")
+    @PostMapping
     public ResponseEntity cadastra(@RequestBody @Valid DadosNovaCategoria form,
                                    BindingResult result){
         if (result.hasFieldErrors()) {
@@ -29,7 +30,7 @@ public class CategoriaController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/api/categoria/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> buscaPorId(@PathVariable("id") Long categoriaId){
 
         if (categoriaId == null) {
