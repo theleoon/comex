@@ -1,6 +1,7 @@
 package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.DadosNovoProduto;
+import br.com.alura.comex.model.DadosProduto;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.ProdutoService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,12 +39,20 @@ public class ProdutoController {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
 
-        return ResponseEntity.ok().body(novoProduto);
+        DadosProduto dadosProduto = DadosProduto.build(novoProduto);
+
+        return ResponseEntity.ok().body(dadosProduto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> lista(){
+    public ResponseEntity<List<DadosProduto>> lista(){
         List<Produto> produtos = produtoService.listaProdutos();
-        return ResponseEntity.ok().body(produtos);
+
+        List<DadosProduto> dadosProdutosList = new ArrayList<>();
+        produtos.forEach(produto -> {
+            dadosProdutosList.add(DadosProduto.build(produto));
+        });
+
+        return ResponseEntity.ok().body(dadosProdutosList);
     }
 }
