@@ -5,6 +5,8 @@ import br.com.alura.comex.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
 
@@ -14,5 +16,9 @@ public class ProdutoService {
         if (novoProduto == null) return;
 
         produtoRepository.save(novoProduto);
+    }
+
+    public List<Produto> listaTodos() {
+        return produtoRepository.findAll();
     }
 }
