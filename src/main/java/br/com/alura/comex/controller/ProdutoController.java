@@ -2,12 +2,16 @@ package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.DadosNovoProduto;
 import br.com.alura.comex.model.DadosProduto;
+import br.com.alura.comex.model.DadosProdutoPaginado;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +29,8 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping
-    public ResponseEntity<Object> cadastro(@RequestBody @Valid DadosNovoProduto form, BindingResult result){
+    public ResponseEntity<Object> cadastro(@RequestBody @Valid DadosNovoProduto form,
+                                           BindingResult result){
 
         if (result.hasFieldErrors())
             return ResponseEntity.badRequest().build();
@@ -44,7 +49,7 @@ public class ProdutoController {
         return ResponseEntity.ok().body(dadosProduto);
     }
 
-    @GetMapping
+
     public ResponseEntity<List<DadosProduto>> lista(){
         List<Produto> produtos = produtoService.listaProdutos();
 
@@ -54,5 +59,21 @@ public class ProdutoController {
         });
 
         return ResponseEntity.ok().body(dadosProdutosList);
+    }
+
+    @GetMapping
+    public ResponseEntity<DadosProdutoPaginado> listaPaginada(@RequestParam(value = "size", defaultValue = "5") Integer pageSize,
+                                                          @RequestParam(value = "page", defaultValue = "0") Integer pageNumber){
+
+        Pageable page = Pageable.ofSize(pageSize).withPage(pageNumber);
+
+        Page<Produto> produtos = produtoService.listaProdutosComPaginacao(page);
+
+        List<DadosProduto> dadosProdutosList = new ArrayList<>();
+        produtos.forEach(produto -> {
+            dadosProdutosList.add(DadosProduto.build(produto));
+        });
+
+        return ResponseEntity.ok().body(new DadosProdutoPaginado(dadosProdutosList, page));
     }
 }

@@ -1,5 +1,7 @@
 package br.com.alura.comex.model;
 
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 
 public record DadosProduto(Long id,
