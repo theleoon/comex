@@ -1,8 +1,13 @@
 package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.DadosCliente;
+import br.com.alura.comex.model.DadosNovoCliente;
 import br.com.alura.comex.service.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,17 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cliente")
 public class ClienteController {
 
+    @Autowired
+    private ClienteService clienteService;
+
     @PostMapping
-    public String cadastra(String nome){
-        System.out.println("Cadastrando um novo cliente");
+    public ResponseEntity<Object> cadastra(@RequestBody DadosNovoCliente form){
 
-        Cliente novoCliente = new Cliente();
-        novoCliente.setNome(nome);
-
-        ClienteService clienteService = new ClienteService();
+        Cliente novoCliente = form.build();
         clienteService.cadastra(novoCliente);
 
-        return nome;
+        return ResponseEntity.ok().body(DadosCliente.build(novoCliente));
     }
 
 }

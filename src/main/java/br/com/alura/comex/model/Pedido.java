@@ -38,6 +38,18 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemDePedido> itemPedidos = new ArrayList<>();
 
+    public Pedido(LocalDate data, Cliente cliente, List<ItemDePedido> itemPedidos) {
+        this.data = data;
+        this.cliente = cliente;
+//        this.desconto = desconto;
+//        this.total = total;
+//        this.tipoDesconto = tipoDesconto;
+        setItemPedidos(itemPedidos);
+    }
+
+    public Pedido() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -91,6 +103,9 @@ public class Pedido {
     }
 
     public void setItemPedidos(List<ItemDePedido> itemPedidos) {
+        itemPedidos.forEach(item -> {
+            item.setPedido(this);
+        });
         this.itemPedidos = itemPedidos;
     }
 }

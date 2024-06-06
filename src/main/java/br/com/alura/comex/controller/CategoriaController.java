@@ -18,6 +18,7 @@ public class CategoriaController {
 
     @PostMapping
     public ResponseEntity cadastra(String nome){
+
         if (nome == null) return ResponseEntity.badRequest().body("Necessário o parâmetro 'nome'");
 
         Categoria novaCategoria = new Categoria(nome);
